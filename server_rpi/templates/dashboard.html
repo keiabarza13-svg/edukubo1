@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduKubo | Dashboard</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background-color: #fff; color: #1a222e; padding: 40px; }
+        header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; border-bottom: 1px solid #eee; padding-bottom: 20px; }
+        .logo { font-weight: bold; font-size: 1.2rem; }
+        .user-info { display: flex; align-items: center; gap: 15px; }
+        .avatar { width: 40px; height: 40px; background: #eee; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; }
+        
+        .library-header { margin-bottom: 30px; }
+        .library-header h2 { font-size: 1.8rem; margin-bottom: 5px; }
+        .library-header p { color: #64748b; }
+
+        .stories-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 25px; margin-top: 20px; }
+        .story-card { border: 1px solid #e2e8f0; border-radius: 12px; padding: 30px; text-align: center; cursor: pointer; transition: transform 0.2s, border-color 0.2s; }
+        .story-card:hover { transform: translateY(-5px); border-color: #3b82f6; }
+        .story-icon { font-size: 3rem; margin-bottom: 15px; display: block; }
+        .story-card h3 { font-size: 1.1rem; margin-bottom: 5px; }
+        .story-card p { font-size: 0.85rem; color: #64748b; }
+        
+        .logout-btn { padding: 8px 15px; border: 1px solid #e2e8f0; border-radius: 8px; background: none; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">📖 EduKubo</div>
+        <div class="user-info">
+            <div class="avatar">{{ full_name[0] }}</div>
+            <span>{{ full_name }}</span>
+            <button class="logout-btn" onclick="window.location.href='/logout'">Logout</button>
+        </div>
+    </header>
+
+    <main>
+        <div class="library-header">
+            <h2>My Reading Library</h2>
+            <p>Select a story to start reading</p>
+        </div>
+
+        <div class="stories-grid">
+            {% for story in stories %}
+            <div class="story-card" onclick="window.location.href='/story/{{ story.story_id }}'">
+                <span class="story-icon">📖</span>
+                <h3>{{ story.title }}</h3>
+                <p>{{ story.category or 'Fable' }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </main>
+</body>
+</html>

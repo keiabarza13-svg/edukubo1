@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduKubo | Access</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body, html { height: 100%; width: 100%; overflow: hidden; }
+        .main-wrapper { display: flex; height: 100vh; width: 100%; }
+        .blue-side { flex: 1; background-color: #1a222e; color: white; padding: 60px; display: flex; flex-direction: column; justify-content: space-between; }
+        .blue-side h1 { font-size: 2.5rem; line-height: 1.2; }
+        .white-side { flex: 1; display: flex; align-items: center; justify-content: center; padding: 40px; background: #fff; }
+        .container { width: 100%; max-width: 400px; }
+        .hidden { display: none; }
+        .role-button { width: 100%; display: flex; align-items: center; padding: 20px; margin-top: 15px; border: 1px solid #e2e8f0; border-radius: 12px; background: white; cursor: pointer; }
+        .role-button:hover { border-color: #3b82f6; background: #f8fafc; }
+        .input-group { margin-bottom: 15px; }
+        .input-group label { display: block; font-weight: 600; font-size: 0.8rem; margin-bottom: 5px; color: #1e293b; }
+        .input-group input, .input-group select { width: 100%; padding: 10px; border: 1px solid #e2e8f0; border-radius: 8px; background: #f8fafc; }
+        .btn-primary { width: 100%; padding: 14px; background: #1a222e; color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; margin-top: 10px; }
+        .back-link { color: #64748b; cursor: pointer; font-size: 0.85rem; margin-bottom: 20px; display: inline-block; }
+        .toggle-link { text-align: center; margin-top: 20px; font-size: 0.85rem; color: #64748b; }
+        .toggle-link span { color: #1e293b; font-weight: 700; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="main-wrapper">
+        <section class="blue-side">
+            <div style="font-weight: bold;">📖 EduKubo</div>
+            <div>
+                <h1>Empowering Functional Literacy</h1>
+                <p style="color: #94a3b8; margin-top: 10px;">Offline, solar-powered adaptive learning.</p>
+            </div>
+            <div style="font-size: 0.9rem;">☀️ Solar Powered &nbsp; | &nbsp; ⚙️ IRT-CAT Engine</div>
+        </section>
+
+        <section class="white-side">
+            <div class="container" id="view-roles">
+                <h2 style="margin-bottom: 10px;">Welcome</h2>
+                <p style="color: #64748b; margin-bottom: 20px;">Select your role to continue</p>
+                <button class="role-button" onclick="showView('login', 'Student')">🎓 <strong>I'm a Student</strong></button>
+                <button class="role-button" onclick="showView('login', 'Teacher')">👤 <strong>I'm a Teacher</strong></button>
+            </div>
+
+            <div class="container hidden" id="view-form">
+                <a class="back-link" onclick="showView('roles')">← Back</a>
+                <h2 id="form-title">Login</h2>
+                <p id="form-subtitle" style="color: #64748b; margin-bottom: 20px; font-size: 0.9rem;">Enter your credentials</p>
+
+                <div class="input-group hidden" id="group-full-name">
+                    <label>Full Name</label>
+                    <input type="text" id="full_name" placeholder="Juan Dela Cruz">
+                </div>
+                <div class="input-group">
+                    <label>Username</label>
+                    <input type="text" id="username" placeholder="Username">
+                </div>
+                <div class="input-group">
+                    <label>Password</label>
+                    <input type="password" id="password" placeholder="••••••••">
+                </div>
+                <div class="input-group hidden" id="group-grade">
+                    <label>Grade Level</label>
+                    <select id="grade_level">
+                        <option value="1">Grade 1</option>
+                        <option value="2">Grade 2</option>
+                        <option value="3">Grade 3</option>
+                    </select>
+                </div>
+
+                <button class="btn-primary" onclick="handleAuth()" id="main-btn">Sign In</button>
+                <p class="toggle-link" id="switch-text">
+                    New here? <span onclick="toggleMode()">Create Account</span>
+                </p>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        let currentMode = 'login';
+        let selectedRole = '';
+
+        function showView(view, role = '') {
+            if (role) selectedRole = role;
+            document.getElementById('view-roles').classList.toggle('hidden', view !== 'roles');
+            document.getElementById('view-form').classList.toggle('hidden', view !== 'login');
+            if (view === 'login') updateUI();
+        }
+
+        function toggleMode() {
+            currentMode = (currentMode === 'login') ? 'register' : 'login';
+            updateUI();
+        }
+
+        function updateUI() {
+            const isReg = currentMode === 'register';
+            document.getElementById('form-title').innerText = isReg ? "Create Account" : selectedRole + " Login";
+            document.getElementById('main-btn').innerText = isReg ? "Register" : "Sign In";
+            document.getElementById('group-full-name').classList.toggle('hidden', !isReg);
+            document.getElementById('group-grade').classList.toggle('hidden', !(isReg && selectedRole === 'Student'));
+            document.getElementById('switch-text').innerHTML = isReg ? 
+                'Already have an account? <span onclick="toggleMode()">Sign In</span>' : 
+                'New here? <span onclick="toggleMode()">Create Account</span>';
+        }
+
+        async function handleAuth() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            if (!username || !password) {
+                alert("Please fill in all fields");
+                return;
+            }
+
+            let endpoint = '/login';
+            const payload = { username, password };
+
+            if (currentMode === 'register') {
+                payload.full_name = document.getElementById('full_name').value;
+                if (selectedRole === 'Student') {
+                    payload.grade_level = document.getElementById('grade_level').value;
+                    endpoint = '/register/student';
+                } else {
+                    endpoint = '/register/teacher';
+                }
+            }
+
+            try {
+                const response = await fetch(endpoint, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const res = await response.json();
+
+                if (res.success) {
+                    if (currentMode === 'login') {
+                        // Success Login: Redirect to the correct dashboard
+                        window.location.href = "/dashboard/" + (res.role || 'student');
+                    } else {
+                        // Success Registration: Switch to Login
+                        alert("Registration successful! Please sign in.");
+                        currentMode = 'login';
+                        updateUI();
+                    }
+                } else {
+                    alert(res.message || "Error occurred");
+                }
+            } catch (err) {
+                alert("Connection failed. Check if server is running.");
+            }
+        }
+    </script>
+</body>
+</html>
