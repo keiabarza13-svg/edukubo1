@@ -4,14 +4,12 @@ from auth import auth_bp
 import random
 
 app = Flask(__name__)
-app.secret_key = 'your_research_secret_key' # Change this for production
+app.secret_key = 'your_research_secret_key'
 app.register_blueprint(auth_bp)
 
-# --- HOME ROUTE: Serving the Access Page (Login/Register) ---
 @app.route('/')
 def home():
-    # REMOVE the 'if user_id in session' check here
-    # This forces the app to ALWAYS show the Login/Register screen first
+  
     return render_template('index.html')
 
 # --- DASHBOARD: The Reading Library ---
@@ -26,7 +24,7 @@ def dashboard(role):
     stories_rows = conn.execute('SELECT * FROM stories').fetchall()
     conn.close()
     
-    # Randomize stories for the placeholder phase
+    # Randomize stories while waiting for dataset
     stories = list(stories_rows)
     random.shuffle(stories)
     
