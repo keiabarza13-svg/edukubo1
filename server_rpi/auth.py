@@ -2,15 +2,10 @@ from flask import Blueprint, request, jsonify, session
 from database import get_connection
 from algorithm.irt import create_student_model
 from algorithm.bkt import create_skill_mastery
-# If you need to initialize LFM parameters during registration, import it here:
-# from algorithm.lfm import initialize_student 
+from algorithm.lfm import initialize_student 
 import bcrypt
 
 auth_bp = Blueprint('auth', __name__)
-
-# ------------------------
-# ROUTES
-# ------------------------
 
 @auth_bp.route('/register/student', methods=['POST'])
 def register_student_route():
@@ -45,9 +40,7 @@ def login_route():
         
     return jsonify(result)
 
-# ------------------------
 # LOGIC FUNCTIONS
-# ------------------------
 
 def register_student(full_name: str, username: str, password: str, grade_level: int):
     # 1. Open ONE connection for the entire process
@@ -72,25 +65,21 @@ def register_student(full_name: str, username: str, password: str, grade_level: 
             VALUES (?, ?)
         """, (user_id, grade_level))
 
-        # 4. Initialize Algorithms using the SHARED connection (conn=conn)
-        # This prevents the "Database is locked" error
+        # 4. Initialize Algorithms 
         create_student_model(user_id, ability=0.0, mastery=0.0, conn=conn)
         
-        # If your system requires initializing specific skills or LFM at reg:
-        # create_skill_mastery(user_id, skill_id=1, conn=conn)
-
         # 5. Commit EVERYTHING at once
         conn.commit()
         return {"success": True, "message": "Student registered successfully."}
     
     except Exception as e:
-        # Rollback ensures no partial data is saved if an algorithm fails
+       
         conn.rollback() 
-        print(f"Registration Error: {e}") # Helpful for debugging in terminal
+        print(f"Registration Error: {e}") 
         return {"success": False, "message": f"Database Error: {str(e)}"}
     
     finally:
-        # 6. Close the door once the whole job is done
+        # 6. Close
         conn.close()
 
 def register_teacher(full_name: str, username: str, password: str):
@@ -133,4 +122,5 @@ def login(username: str, password: str):
         else:
             return {"success": False, "message": "Incorrect password"}
     finally:
+
         conn.close()
