@@ -3,7 +3,7 @@ import sqlite3
 from database import get_connection 
 from auth import auth_bp
 
-# Import your algorithm logic
+
 from algorithm.irt import get_ability, irt_update
 from algorithm.bkt import bkt_update
 from algorithm.lfm import train_lfm, increment_difficulty_attempt
@@ -11,7 +11,6 @@ from algorithm.lfm import train_lfm, increment_difficulty_attempt
 app = Flask(__name__)
 app.secret_key = 'edukubo_research_2026'
 
-# --- 1. CORE ROUTES ---
 
 @app.route('/')
 def home():
@@ -25,7 +24,7 @@ def dashboard(role):
     user_id = session['user_id']
     conn = get_connection()
     
-    # Fetch Student Grade Level
+
     student_data = conn.execute('''
         SELECT s.grade_level 
         FROM students s 
@@ -42,7 +41,7 @@ def dashboard(role):
     student_mastery = mastery_row['mastery'] if mastery_row else 0.0
 
     # Range for Adaptive filtering (ZPD)
-    low_bound = student_theta - 1.5  # Slightly widened for initial testing
+    low_bound = student_theta - 1.5  
     high_bound = student_theta + 1.5
 
     # Filter stories: Grade match + Difficulty Range
@@ -127,7 +126,7 @@ def logout():
     session.clear()
     return redirect(url_for('home'))
 
-# --- 2. REGISTER BLUEPRINTS LAST ---
+
 app.register_blueprint(auth_bp)
 
 if __name__ == '__main__':
