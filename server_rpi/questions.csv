@@ -1,0 +1,69 @@
+﻿question_id,story_id,question, option_a,option_b, option_c, option_d,correct_answer,  difficulty_level
+1,1,"At the beginning of the story, where was Mia?",a. She was in her bedroom.,b. She was in the bathroom.,c. She was at the kitchen table.,d. She was on a bench outside.,a,0.0
+2,1,What time of the day was it?,a. middle of the day,b. late in the evening,c. early in the morning,d. late in the afternoon,c,1.0
+3,1,What do you think will happen next?,a. She will have lunch.,b. She will have dinner.,c. She will have a snack.,d. She will have breakfast.,d,1.0
+4,1,What will she say when she gets up?,a. “Good evening.”,b. “Good afternoon!”,c. “Good morning!”,d. “Thank you very much!”,c,1.0
+5,1,What other title can be given for this story?,a. The End of the Day,b. The Start of the Day,c. Just Before Sleeping,d. The Middle of the Day,b,1.5
+6,2,Why did Benito and Nelia race out the door?,a. They wanted to buy something.,b. They wanted to open the door.,c. They wanted to find out what was going on.,d. They wanted to know what was making noise.,a,1.0
+7,2,"In the beginning, what did Benito plan to do?",a. buy ice cream for himself and his sister,b. buy two scoops of ice cream for himself,c. buy two scoops of ice cream for his sister,d. reach the ice cream vendor ahead of his sister,b,0.0
+8,2,Why were they smiling at the end of the story?,a. They each got a free ice cream cone.,b. They made the ice cream vendor happy.,c. They shared a cup with two scoops of ice cream.,d. They each had a scoop of ice cream on a cone.,d,1.0
+9,2,A vendor is someone who ___________________.,a. sells things,b. buys things,c. counts things,d. gives things away,a,1.0
+10,2,Which of the following best describes Benito?,a. He is selfish.,b. He is giving.,c. He is thrifty.,d. He is greedy.,b,1.0
+11,3,Where did the bird come from?,a. an egg with lots of spots,b. an egg with many colors,c. an egg with only one color,d. an egg with plenty of stripes,a,0.0
+12,3,Why was the bird afraid?,a. He did not have any friends.,b. He did not know how to fly.,c. He did not know his mother.,d. He did not see his brothers.,b,1.0
+13,3,Why was the bird’s mother not in the nest?,a. She had to look for a nest to house the little bird.,b. She had to leave the bird so he will learn on his own.,c. She had to find food to feed the hungry little bird.,d. She had to look for something to help the little bird fly.,c,1.0
+14,3, How did the bird learn to fly?,a. by studying and practicing,b. by watching other birds fly,c. by having his mother teach him,d. by accidentally flapping its wings,d,1.0
+15,3,"At the end of the passage, how did the little bird feel?",a. lonely,b. afraid,c. nervous,d. excited,d,1.0
+16,4,What was the owl’s problem?,a. She slept in the morning.,b. She couldn’t hoot at night.,c. She was awake all night long.,d. She couldn’t wake the people up.,b,1.0
+17,4,What was the rooster’s problem?,a. He couldn’t hoot with the owl.,b. He couldn’t wake the people up.,c. He couldn’t sleep in the morning.,d. He couldn’t be with his friends.,b,0.0
+18,4,The word rouse has a synonym in the selection. What is this word?,a. wake,b. solve,c. slept,d. hoot,a,1.0
+19,4,How did the owl and the rooster feel at the end of the passage?,a. worried,b. alarmed,c. relieved,d. unhappy,c,1.0
+20,4,What was the author's purpose when she wrote the selection?,a. to inform,b. to entertain,c. to evaluate,d. to convince,b,1.5
+21,5,"Mara woke up with a start. When a person wakes up with a start, it means that one
+got out of bed ____________________.",a. sad,b. happy,c. worried,d. excited,c,1.0
+22,5,Why does Mara have to rush?,a. so she would get to school on time,b. so she would be the first student in school,c. so she would be the fastest runner in school,d. so she could eat breakfast before going to school,a,0.0
+23,5,What did Mara forget?,a. that she did not set her alarm clock early enough for the next day,b. that she did not need to rush because there were no classes today,c. that she cannot anymore eat breakfast if she was rushing to school,d. that she cannot anymore go to school because she was very late,b,1.0
+24,5,How do you think did Mara feel after her mother talked to her?,a. anxious,b. nervous,c. relieved,d. unhappy,c,1.0
+25,5,What did the author intend when she wrote the selection?,a. to inform,b. to entertain,c. to evaluate,d. to convince,b,1.5
+26,6,What did Anika want to do?,a. wash rice,b. cook rice,c. serve rice,d. measure rice,b,1.0
+27,6,Why was she unable to do what she wanted to do?,a. The lid was very hot.,b. The clock was not working.,c. The stove was not plugged.,d. The pot had too much water.,c,1.0
+28,6,"Why did Anika look at the clock.? She looked at the clock to see if
+_____________________.",a. the clock was still working,b. she still had time to watch TV.,c. the time on the clock was correct,d. the rice will be cooked in time for lunch.,d,1.0
+29,6,What did Anika feel when she saw the clock?,a. glad,b. angry,c. excited,d. worried,d,1.0
+30,6,What should Anika do to finish what she started?,a. She should plug the stove.,b. She should set the alarm clock.,c. She should wash the rice grains again.,d. She should add more water to the pot.,a,1.0
+31,7,Why did Mario think the box was for him?,a. It was Christmas.,b. It was his birthday.,c. It was New Year’s Eve.,d. It was Valentine’s day.,b,0.0
+32,7,"In the selection, it said that Mario saw the coolest-looking pair of shoes. 
+What does this mean?",a. The shoes were very fashionable.,b. The shoes kept his feet from being warm.,c. The shoes felt very cold when he touched them.,d. The shoes made him shiver when he wore them.,a,1.0
+33,7,"As Mario looked down, what did he think he needed to do?",a. Clean the shoes.,b. Wrap the shoes.,c. Wear the shoes.,d. Hide the shoes.,a,0.0
+34,7,How did Mario’s mother feel when she saw Mario?,a. happy,b. lonely,c. worried,d. excited,c,1.0
+35,7,What do you think was Mario feeling when he saw his mother?,a. afraid,b. lonely,c. excited,d. nervous,d,1.0
+36,8,Why did they close the windows?,a. to keep their home clean,b. to make their feel cooler,c. to protect them from the rain,d. to prevent bats from coming in,c,1.0
+37,8,Which of the following did Jessica and her mom do?,a. prayed hard,b. bought supplies,c. worked together,d. watched the wind,c,1.0
+38,8,Which of the following best describes the characters in our story?,a. lucky,b. giving,c. loving,d. prepared,d,1.0
+39,8,What does the word “blackout” mean?,a. There is a strong storm.,b. There is no electric power.,c. There are dark rain clouds.,d. There are no stars in the sky.,b,1.0
+40,8,What did the mother feel at the end of the story?,a. relaxed,b. helpless,c. worried,d. unhappy,a,1.0
+41,9,What is one unique characteristic of chameleons?,a. Their color changes.,b. They live in trees.,c. They live in deserts.,d. They climb trees fast. They send messages to other animals.,a,0.0
+42,9,What will happen to a chameleon on a cold day?,a. It will become invisible.,b. It will turn a shade lighter.,c. It will turn white.,d. It will turn a shade darker.,d,1.0
+43,9,Changing its color is the chameleon’s way of ______________________.,a. showing its special power,b. hiding itself from other animals,c. finding its family,d. shedding its skin,b,0.0
+44,9,"Chameleons are extraordinary animals. Another word for extraordinary
+is ________________________.",a. amazing,b. not known,c. common,d. unusual,d,1.0
+45,9,What is the advantage of changing color?,a. It can hide itself.,b. It can kill enemies,c. It can join with other chameleons.,d. It can hold on to the branch as it climbs.,a,1.0
+46,9,The main idea of the selection is,a. why chameleons change colors.,b. how chameleons survive in the wild.,c. where chameleons come from.,d. where chameleons live.,a,1.5
+47,9,The best title for this selection is,a. How Chameleons Communicate with Other Animals,b. Why Chameleons Change Color,c. The Different Habitats of Chameleons,d. The Enemies of Chameleons,b,1.5
+48,10,"The Philippine Eagle is in danger of extinction. It means this type of eagle will
+eventually ________________.",a. disappear,b. increase,c. migrate,d. starve,a,1.0
+49,10,"When birds are bred in captivity, they are _____________.",a. allowed to freely fly in the wide forest,b. cared for in a safe environment,c. caught and sold as pets,d. given a diet of bread,b,1.0
+50,10,What is responsible for the decrease in the number of Philippine Eagles?,a. their migration to cooler countries,b. their transfer to warmer places,c. the activities of humans,d. lack of available food,c,1.0
+51,10,Pag-asa is the name of the first eagle which,a. was discovered first in our country.,b. was born in captivity.,c. was kept in the wild,d. was given as a gift.,b,0.0
+52,10,"What is the problem posed in the selection?
+The Philippine Eagles _______________________________.",a. are in danger of being gone forever,b. are dying because of a disease,c. migrate to other countries,d. are not growing fast,a,1.5
+53,10,The purpose for writing the selection is to,a. invite researchers to study the Philippine eagle.,b. make the reader proud of the Philippine eagle.,c. warn the hunters not to harm the Philippine eagle.,d. raise an alarm about the possible disappearance of the Philippine Eagle.,d,1.5
+54,10,A good title for this selection is,a. Help Save the Philippine Eagle,b. See the Rare Philippine Eagle,c. Breeding the Philippine Eagle,d. The Effects of Deforestation,a,1.5
+55,11,Coral reefs are described as underground gardens because ___________.,a. they are full of flowers,b. there are many sea plants,c. they have many enormous fish,d. there are many types of pebbles,b,1.0
+56,11,"Coral reefs provide a safe sanctuary to live for the small fish. A sanctuary is
+synonymous to ______________________.",a. water,b. shelter,c. cage,d. cave,b,1.0
+57,11,Which of these bodies of water would have coral reefs?,a. the sea,b. the lake,c. the river,d. the pond,a,1.0
+58,11,Why are the small fish safer in the coral reefs than in the open sea?,a. The water is saltier.,b. The waves are not so big.,c. There is no pollution there.,d. It is less likely that the big fish will eat them.,d,1.0
+59,11,How is the last paragraph of the selection developed?,a. by giving a list of effects,b. by enumerating a series of sequenced events,c. by stating the main topic and giving examples,d. by defining the problem and the possible solution,c,1.5
+60,11,"Which cause of the destruction of coral reefs is mentioned in the last
+paragraph?",a. pollution,b. the presence of big fish,c. the strong wind and big waves,d. the increasing temperature of the ocean,a,0.0
