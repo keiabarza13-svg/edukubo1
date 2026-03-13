@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ story.title }} | EduKubo</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            line-height: 1.8; 
+            color: #2d3436; 
+            max-width: 750px; 
+            margin: 0 auto; 
+            padding: 40px 20px; 
+            background: #fdfdfd; 
+        }
+        .back-link { 
+            display: inline-block; 
+            margin-bottom: 30px; 
+            color: #0984e3; 
+            text-decoration: none; 
+            font-weight: 600;
+            transition: transform 0.2s;
+        }
+        .back-link:hover { transform: translateX(-5px); }
+        
+        .story-container { 
+            background: white; 
+            padding: 50px; 
+            border-radius: 15px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border: 1px solid #eee;
+        }
+        
+        h1 { 
+            font-size: 2.8rem; 
+            margin-top: 0;
+            margin-bottom: 25px; 
+            color: #2d3436; 
+            line-height: 1.2;
+        }
+
+        .content { 
+            font-size: 1.25rem; 
+            white-space: pre-wrap; /* Keeps your database line breaks */
+            margin-bottom: 50px; 
+            color: #444;
+            text-align: justify;
+        }
+
+        .action-area {
+            border-top: 2px solid #f1f1f1;
+            padding-top: 30px;
+            text-align: center;
+        }
+
+        .quiz-btn { 
+            display: inline-block; 
+            background: #2d3436; 
+            color: white; 
+            padding: 18px 40px; 
+            border-radius: 50px; 
+            text-decoration: none; 
+            font-weight: bold; 
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .quiz-btn:hover { 
+            background: #0984e3; 
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(9, 132, 227, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <a href="/dashboard/student" class="back-link">← Back to My Library</a>
+
+    <div class="story-container">
+        <h1>{{ story.title }}</h1>
+        
+        <div class="content">
+            {{ story.content }}
+        </div>
+
+        <div class="action-area">
+            <a href="/quiz/{{ story.story_id }}" class="quiz-btn">I'm Finished Reading! Take Quiz</a>
+        </div>
+    </div>
+</body>
+</html>
