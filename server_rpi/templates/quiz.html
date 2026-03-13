@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: {{ story.title }} | EduKubo</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; line-height: 1.6; color: #2d3436; max-width: 800px; margin: 0 auto; padding: 40px 20px; background: #f4f7f6; }
+        .quiz-container { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+        h1 { color: #0984e3; margin-bottom: 5px; }
+        .question-block { background: #f9f9f9; padding: 25px; border-radius: 12px; margin-bottom: 25px; border-left: 5px solid #00b894; }
+        .option-label { display: block; background: white; padding: 12px 15px; margin: 8px 0; border: 1px solid #dfe6e9; border-radius: 8px; cursor: pointer; transition: 0.2s; }
+        .option-label:hover { background: #eef2f7; border-color: #0984e3; }
+        .btn-submit { width: 100%; background: #2d3436; color: white; border: none; padding: 18px; font-size: 1.2rem; font-weight: bold; border-radius: 50px; cursor: pointer; margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+    <div class="quiz-container">
+        <h1>Comprehension Check</h1>
+        <p>Story: <strong>{{ story.title }}</strong></p>
+
+        <form action="{{ url_for('submit_quiz', story_id=story.story_id) }}" method="POST">
+            {% for q in questions %}
+            <div class="question-block">
+                <span style="font-weight: 600; font-size: 1.1rem; display: block; margin-bottom: 15px;">
+                    {{ loop.index }}. {{ q['question'] or q[2] }}
+                </span>
+                
+                <label class="option-label">
+                    <input type="radio" name="question_{{ q['question_id'] or q[0] }}" value="A" required> 
+                    {{ q['option_a'] or q[3] }}
+                </label>
+                
+                <label class="option-label">
+                    <input type="radio" name="question_{{ q['question_id'] or q[0] }}" value="B"> 
+                    {{ q['option_b'] or q[4] }}
+                </label>
+                
+                <label class="option-label">
+                    <input type="radio" name="question_{{ q['question_id'] or q[0] }}" value="C"> 
+                    {{ q['option_c'] or q[5] }}
+                </label>
+                
+                <label class="option-label">
+                    <input type="radio" name="question_{{ q['question_id'] or q[0] }}" value="D"> 
+                    {{ q['option_d'] or q[6] }}
+                </label>
+            </div>
+            {% endfor %}
+
+            <button type="submit" class="btn-submit">Submit My Answers</button>
+        </form>
+    </div>
+
+</body>
+</html>
