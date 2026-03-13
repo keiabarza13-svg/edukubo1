@@ -72,6 +72,14 @@ def dashboard(role):
                            mastery=round(student_mastery, 2),
                            grade=student_grade)
 
+@app.route('/quiz/<int:story_id>')
+def take_quiz(story_id):
+    conn = get_connection()
+    story = conn.execute('SELECT * FROM stories WHERE story_id = ?', (story_id,)).fetchone()
+    questions = conn.execute('SELECT * FROM questions WHERE story_id = ?', (story_id,)).fetchall()
+    conn.close()
+    return render_template('quiz.html', story=story, questions=questions)
+
 @app.route('/story/<int:story_id>')
 def view_story(story_id):
     if 'user_id' not in session: return redirect(url_for('home'))
