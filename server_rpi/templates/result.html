@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Results | EduKubo</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #f4f7f6; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .result-card { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); text-align: center; max-width: 500px; width: 90%; }
+        .score-circle { width: 120px; height: 120px; background: #00b894; color: white; border-radius: 50%; display: flex; flex-direction: column; justify-content: center; margin: 0 auto 20px; }
+        .score-val { font-size: 2.2rem; font-weight: bold; }
+        .stats-container { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 25px 0; padding: 20px; background: #f9f9f9; border-radius: 12px; }
+        .stat-label { display: block; color: #636e72; font-size: 0.85rem; margin-bottom: 5px; }
+        .stat-value { font-size: 1.2rem; font-weight: bold; color: #2d3436; }
+        .btn-return { display: inline-block; background: #0984e3; color: white; padding: 15px 35px; text-decoration: none; border-radius: 50px; font-weight: bold; transition: 0.3s; margin-top: 10px; }
+        .btn-return:hover { background: #00acee; transform: translateY(-2px); }
+    </style>
+</head>
+<body>
+    <div class="result-card">
+        <h1 style="color: #2d3436;">Quiz Completed!</h1>
+        <p style="color: #636e72;">Great effort on reading <strong>{{ story_title }}</strong></p>
+        
+        <div class="score-circle">
+            <div class="score-val">{{ score }}/{{ total }}</div>
+            <div style="font-size: 0.8rem;">Correct</div>
+        </div>
+
+    
+
+        <p style="font-size: 0.9rem; color: #00b894; font-weight: 600;">✓ Progress saved to your profile</p>
+        
+        <a href="{{ url_for('dashboard', role='student') }}" class="btn-return">Go to Dashboard</a>
+    </div>
+</body>
+</html>
