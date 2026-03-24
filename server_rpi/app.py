@@ -37,7 +37,7 @@ def dashboard(role):
     mastery_row = conn.execute('SELECT mastery FROM student_model WHERE student_id = ?', (user_id,)).fetchone()
     student_mastery = mastery_row['mastery'] if mastery_row else 0.0
 
-    # 4. Adaptive filtering (Zone of Proximal Development)
+    # 4. Adaptive filtering 
     low_bound, high_bound = student_theta - 1.5, student_theta + 1.5
 
     # Filter stories based on Grade and IRT Ability
@@ -117,7 +117,7 @@ def submit_quiz(story_id):
     # 3. Algorithm Calculations
     new_theta = irt_update(user_id, story['difficulty_level'], responses, conn)
     
-    # 4. Sync Database (Update student_model)
+    # 4. Sync Database 
     conn.execute('''
         UPDATE student_model 
         SET ability = ?, 
@@ -128,7 +128,7 @@ def submit_quiz(story_id):
     conn.execute('INSERT INTO scores (student_id, story_id, score) VALUES (?, ?, ?)', 
                  (user_id, story_id, total_correct))
     
-    # 5. Get the final mastery value to pass to the template (Fixes UndefinedError)
+    # 5. Get the final mastery value to pass to the template
     mastery_row = conn.execute('SELECT mastery FROM student_model WHERE student_id = ?', (user_id,)).fetchone()
     current_mastery = mastery_row['mastery'] if mastery_row else 0.0
     
@@ -142,14 +142,14 @@ def submit_quiz(story_id):
                            score=total_correct, 
                            total=len(responses), 
                            theta=round(new_theta, 2),
-                           mastery=current_mastery,  # Sent to fix the Jinja2 error
+                           mastery=current_mastery,  
                            story_title=story['title'])
 @app.route('/logout')
 def logout():
     session.clear()
     return redirect(url_for('home'))
 
-# Register Authentication Blueprint
+
 app.register_blueprint(auth_bp)
 
 if __name__ == '__main__':
