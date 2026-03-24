@@ -2,12 +2,12 @@ from flask import Blueprint, request, jsonify, session
 from database import get_connection
 from algorithm.irt import create_student_model
 from algorithm.bkt import create_skill_mastery
- 
+from algorithm.lfm import initialize_student 
 import bcrypt
 
 auth_bp = Blueprint('auth', __name__)
 
-# ROUTES
+
 
 @auth_bp.route('/register/student', methods=['POST'])
 def register_student_route():
@@ -42,6 +42,7 @@ def login_route():
         
     return jsonify(result)
 
+
 # LOGIC FUNCTIONS
 
 def register_student(full_name: str, username: str, password: str, grade_level: int):
@@ -53,31 +54,37 @@ def register_student(full_name: str, username: str, password: str, grade_level: 
     password_hash = bcrypt.hashpw(password.encode('utf-8'), salt)
 
     try:
+        # Insert into users
         cursor.execute("""
             INSERT INTO users (full_name, username, password_hash, role)
             VALUES (?, ?, ?, 'student')
         """, (full_name, username, password_hash))
         user_id = cursor.lastrowid
 
+        # Insert into students
         cursor.execute("""
             INSERT INTO students (student_id, grade_level)
             VALUES (?, ?)
         """, (user_id, grade_level))
 
+        # Initialize Algorithms using the SHARED connection (conn=conn)
+       
         create_student_model(user_id, ability=0.0, mastery=0.0, conn=conn)
         
- 
+        
+        # create_skill_mastery(user_id, skill_id=1, conn=conn)
+
         conn.commit()
         return {"success": True, "message": "Student registered successfully."}
     
     except Exception as e:
-        
+        # Rollback ensures no partial data is saved if an algorithm fails
         conn.rollback() 
-        print(f"Registration Error: {e}") 
+        print(f"Registration Error: {e}") # Helpful for debugging in terminal
         return {"success": False, "message": f"Database Error: {str(e)}"}
     
     finally:
-      
+        # Close 
         conn.close()
 
 def register_teacher(full_name: str, username: str, password: str):
