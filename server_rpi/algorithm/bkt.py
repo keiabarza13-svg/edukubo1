@@ -1,13 +1,8 @@
 import math
 from database import get_connection
 
-# BKT (Question/Skill-Level Mastery)
-
 def create_skill_mastery(student_id: int, skill_id: int, conn=None):
-    """
-    Initialize skill mastery for a student.
-    Default = 0.2 (20% chance student knows skill)
-    """
+    """Set initial skill mastery to 20%"""
     db_conn = conn if conn else get_connection()
     cursor = db_conn.cursor()
     
@@ -21,9 +16,8 @@ def create_skill_mastery(student_id: int, skill_id: int, conn=None):
         db_conn.commit()
         db_conn.close()
 
-
 def get_mastery(student_id: int, skill_id: int, conn=None):
-    """Get current mastery probability for a skill"""
+    """Get current mastery from DB"""
     db_conn = conn if conn else get_connection()
     cursor = db_conn.cursor()
     
@@ -35,30 +29,27 @@ def get_mastery(student_id: int, skill_id: int, conn=None):
     
     if not conn:
         db_conn.close()
-    return row["mastery_probability"] if row else 0.2
-
+    # Using index [0] for the float value
+    return row[0] if row else 0.2
 
 def bkt_update(student_id: int, skill_id: int, correct: int, 
                slip=0.1, guess=0.2, learn=0.15, conn=None):
-    """
-    Update skill mastery using BKT logic with a shared connection.
-    """
+    """Update skill mastery after an answer"""
     db_conn = conn if conn else get_connection()
     cursor = db_conn.cursor()
 
-    # Get current mastery using the shared connection
     L_t = get_mastery(student_id, skill_id, conn=db_conn)
 
-    # Bayesian update logic
+    # Bayesian math for the update
     if correct:
         L_t_new = (L_t * (1 - slip)) / (L_t * (1 - slip) + (1 - L_t) * guess)
     else:
         L_t_new = (L_t * slip) / (L_t * slip + (1 - L_t) * (1 - guess))
 
-    # Apply learning transition
+    # Add the learning transition
     L_t_new = L_t_new + (1 - L_t_new) * learn
 
-    # Save updated mastery
+    # Update or insert the new probability
     cursor.execute("""
         INSERT INTO student_skill_mastery (student_id, skill_id, mastery_probability)
         VALUES (?, ?, ?)
