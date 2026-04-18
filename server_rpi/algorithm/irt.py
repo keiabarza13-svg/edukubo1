@@ -9,16 +9,16 @@ def close_db(conn, original_conn):
     if not original_conn:
         conn.close()
 
-def create_student_model(student_id: int, ability: float = 0.0, conn=None):
+def create_student_model(student_id: int, ability: float = 0.0, mastery: float = 0.0, conn=None):
     """Setup new student score - called during signup"""
     db_conn = get_db(conn)
     cursor = db_conn.cursor()
     
-    # Don't overwrite if student already exists
+    # We now include the mastery column to ensure it starts at 0.0
     cursor.execute("""
-        INSERT OR IGNORE INTO student_model (student_id, ability)
-        VALUES (?, ?)
-    """, (student_id, ability))
+        INSERT OR IGNORE INTO student_model (student_id, ability, mastery)
+        VALUES (?, ?, ?)
+    """, (student_id, ability, mastery))
     
     if not conn:
         db_conn.commit()
