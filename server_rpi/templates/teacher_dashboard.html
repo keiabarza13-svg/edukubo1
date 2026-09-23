@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduKubo | Teacher Dashboard</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background-color: #fff; color: #1a222e; padding: 40px; }
+        
+        header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; border-bottom: 1px solid #eee; padding-bottom: 20px; }
+        .logo { font-weight: bold; font-size: 1.2rem; }
+        .user-info { display: flex; align-items: center; gap: 15px; }
+        .avatar { width: 40px; height: 40px; background: #e2e8f0; color: #1a222e; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; }
+        .logout-btn { padding: 8px 15px; border: 1px solid #e2e8f0; border-radius: 8px; background: none; cursor: pointer; text-decoration: none; color: #1a222e; font-size: 0.9rem; }
+        .logout-btn:hover { background-color: #f8fafc; }
+
+        .dashboard-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 30px; }
+        .dashboard-header h2 { font-size: 1.8rem; margin-bottom: 5px; }
+        .dashboard-header p { color: #64748b; }
+
+        .actions-group { display: flex; gap: 12px; }
+        .btn { padding: 10px 18px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: background-color 0.2s, transform 0.1s; }
+        .btn-primary { background-color: #3b82f6; color: white; border: none; }
+        .btn-primary:hover { background-color: #2563eb; }
+        .btn-secondary { background-color: #10b981; color: white; border: none; }
+        .btn-secondary:hover { background-color: #059669; }
+
+        .table-card { border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; }
+        table { width: 100%; border-collapse: collapse; text-align: left; }
+        th { background-color: #f8fafc; color: #64748b; padding: 16px 20px; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid #e2e8f0; }
+        td { padding: 16px 20px; border-bottom: 1px solid #e2e8f0; font-size: 0.95rem; }
+        tr:last-child td { border-bottom: none; }
+        tr:hover { background-color: #f8fafc; }
+
+        .badge { background: #eff6ff; color: #3b82f6; padding: 4px 10px; border-radius: 6px; font-weight: 600; font-size: 0.85rem; display: inline-block; }
+        .alert-text { color: #ef4444; font-weight: 500; }
+        .empty-state { text-align: center; padding: 40px; color: #64748b; }
+
+        /* Performance Color-Coding Badges */
+        .status-badge { padding: 6px 12px; border-radius: 20px; font-weight: 600; font-size: 0.85rem; display: inline-block; }
+        .status-green { background-color: #dcfce7; color: #166534; }  /* Average to Good */
+        .status-orange { background-color: #ffedd5; color: #9a3412; } /* Below Average */
+        .status-red { background-color: #fee2e2; color: #991b1b; }    /* Struggling */
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">📖 EduKubo</div>
+        <div class="user-info">
+            <div class="avatar">T</div>
+            <span>Teacher</span>
+            <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
+        </div>
+    </header>
+
+    <main>
+        <div class="dashboard-header">
+            <div>
+                <h2>Grade {{ grade }} Student Monitoring</h2>
+                <p>Tracking reading performance based on IRT and BKT models</p>
+            </div>
+            <div class="actions-group">
+                <a href="{{ url_for('students_roster') }}" class="btn btn-primary">📋 View Full Roster</a>
+                <a href="{{ url_for('add_story') }}" class="btn btn-secondary">➕ Add Story & Questions</a>
+            </div>
+        </div>
+
+        <div class="table-card">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Student Name</th>
+                        <th>Ability (IRT Theta)</th>
+                        <th>Mastery (BKT Avg)</th>
+                        <th>Hardest Story (Needs Help)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for student in students %}
+                    {% set mastery_pct = (student.mastery * 100) | round(0) %}
+                    <tr>
+                        <td><strong>{{ student.full_name }}</strong></td>
+                        <td><span class="badge">{{ student.ability | round(2) }}</span></td>
+                        <td>
+                            {% if mastery_pct < 50 %}
+                                <span class="status-badge status-red">{{ mastery_pct }}% (Struggling)</span>
+                            {% elif mastery_pct < 75 %}
+                                <span class="status-badge status-orange">{{ mastery_pct }}% (Below Avg)</span>
+                            {% else %}
+                                <span class="status-badge status-green">{{ mastery_pct }}% (Good)</span>
+                            {% endif %}
+                        </td>
+                        <td class="{{ 'alert-text' if student.hardest_story else '' }}">
+                            {{ student.hardest_story if student.hardest_story else "No struggles recorded" }}
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="4" class="empty-state">No students found for Grade {{ grade }}.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduKubo | All Students Roster</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background-color: #fff; color: #1a222e; padding: 40px; }
+
+        header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; border-bottom: 1px solid #eee; padding-bottom: 20px; }
+        .logo { font-weight: bold; font-size: 1.2rem; }
+        .user-info { display: flex; align-items: center; gap: 15px; }
+        .avatar { width: 40px; height: 40px; background: #e2e8f0; color: #1a222e; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; }
+        .back-btn { padding: 8px 15px; border: 1px solid #e2e8f0; border-radius: 8px; background: none; text-decoration: none; color: #1a222e; font-size: 0.9rem; }
+        .back-btn:hover { background-color: #f8fafc; }
+
+        .roster-header { margin-bottom: 30px; }
+        .roster-header h2 { font-size: 1.8rem; margin-bottom: 5px; }
+        .roster-header p { color: #64748b; }
+
+        .table-card { border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; }
+        table { width: 100%; border-collapse: collapse; text-align: left; }
+        th { background-color: #f8fafc; color: #64748b; padding: 16px 20px; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid #e2e8f0; }
+        td { padding: 16px 20px; border-bottom: 1px solid #e2e8f0; font-size: 0.95rem; }
+        tr:last-child td { border-bottom: none; }
+        tr:hover { background-color: #f8fafc; }
+
+        .badge { background: #eff6ff; color: #3b82f6; padding: 4px 10px; border-radius: 6px; font-weight: 600; font-size: 0.85rem; display: inline-block; }
+        .grade-badge { background: #f1f5f9; color: #475569; padding: 4px 10px; border-radius: 6px; font-weight: 500; font-size: 0.85rem; }
+        .empty-state { text-align: center; padding: 40px; color: #64748b; }
+
+        /* Performance Color-Coding Badges */
+        .status-badge { padding: 6px 12px; border-radius: 20px; font-weight: 600; font-size: 0.85rem; display: inline-block; }
+        .status-green { background-color: #dcfce7; color: #166534; }
+        .status-orange { background-color: #ffedd5; color: #9a3412; }
+        .status-red { background-color: #fee2e2; color: #991b1b; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">📖 EduKubo</div>
+        <div class="user-info">
+            <div class="avatar">T</div>
+            <a href="{{ url_for('teacher_dashboard') }}" class="back-btn">← Back to Dashboard</a>
+        </div>
+    </header>
+
+    <main>
+        <div class="roster-header">
+            <h2>Complete Student Roster</h2>
+            <p>Overall student performance across all grades</p>
+        </div>
+
+        <div class="table-card">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Student Name</th>
+                        <th>Grade Level</th>
+                        <th>Ability (IRT Theta)</th>
+                        <th>Mastery (BKT Level)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for student in students %}
+                    {% set mastery_pct = (student.mastery * 100) | round(0) %}
+                    <tr>
+                        <td><strong>{{ student.full_name }}</strong></td>
+                        <td><span class="grade-badge">Grade {{ student.grade_level }}</span></td>
+                        <td><span class="badge">{{ student.ability | round(2) }}</span></td>
+                        <td>
+                            {% if mastery_pct < 50 %}
+                                <span class="status-badge status-red">{{ mastery_pct }}% (Struggling)</span>
+                            {% elif mastery_pct < 75 %}
+                                <span class="status-badge status-orange">{{ mastery_pct }}% (Below Avg)</span>
+                            {% else %}
+                                <span class="status-badge status-green">{{ mastery_pct }}% (Good)</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="4" class="empty-state">No registered students found.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+</body>
+</html>
