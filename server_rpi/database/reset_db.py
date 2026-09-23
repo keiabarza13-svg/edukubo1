@@ -4,8 +4,12 @@ def hard_reset():
     conn = sqlite3.connect('edukubo.db')
     cursor = conn.cursor()
 
+    # 1. TEMPORARILY DISABLE FOREIGN KEYS
+    # This allows us to delete "Parent" tables like stories without error
     cursor.execute("PRAGMA foreign_keys = OFF;")
 
+    # 2. LIST ALL TABLES TO CLEAR
+    # Order doesn't matter now because constraints are OFF
     tables = [
         'scores', 
         'quiz_results', 
@@ -14,7 +18,7 @@ def hard_reset():
         'questions', 
         'stories',
         'student_model',
-        'students' 
+        'students' # Include this if you want to wipe test students too
     ]
 
     print("--- Hard Resetting Database ---")
@@ -28,7 +32,7 @@ def hard_reset():
         except sqlite3.OperationalError:
             print(f"⚠️ Table {table} not found, skipping...")
 
- 
+    # 3. RE-ENABLE FOREIGN KEYS
     cursor.execute("PRAGMA foreign_keys = ON;")
 
     conn.commit()
@@ -36,5 +40,4 @@ def hard_reset():
     print("--- Database is now FRESH. You can run import_data.py now! ---")
 
 if __name__ == "__main__":
-
     hard_reset()
